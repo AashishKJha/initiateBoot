@@ -100,7 +100,6 @@ public class Basic {
             System.out.println("name : " + signal.name() +
                     " action: " + signal.getAction());
         }
-
     }
 
     public void variables() {
