@@ -7,8 +7,6 @@ import java.util.Vector;
  * Array, Vector and hashtable are lagecy classes
  */
 public class LegacyClasess {
-
-
     public static void main(String[] args) {
         Vector<String> vector = new Vector<String>();
         int[] arr = new int[10];
