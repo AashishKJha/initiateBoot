@@ -1,7 +1,7 @@
 package com.aashish.app.CollectionTest.Set;
 
 /**
- * set interdace is implemented by hashset, TreeSet, LinkedHashSet.
+ * set interface is implemented by hashset, TreeSet, LinkedHashSet.
  */
 
 
@@ -11,7 +11,7 @@ import java.util.Collection;
 import java.util.Set;
 
 /**
- * Implementing se using hashset class.
+ * Implementing se using hasdset class.
  */
 public class HashSet<S> extends CollectionCommon {
 
