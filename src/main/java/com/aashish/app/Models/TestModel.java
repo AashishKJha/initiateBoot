@@ -28,4 +28,22 @@ public abstract class TestModel implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
+    /**
+     * Getter And Setter.
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
 }

@@ -1,5 +1,7 @@
 package com.aashish.app.Models;
 
+import org.hibernate.annotations.BatchSize;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -7,19 +9,20 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "users")
 public class UserModel extends TestModel {
+
     @Id
-    @GeneratedValue(generator = "id")
+    @GeneratedValue(generator = "user_generator")
     @SequenceGenerator(
-            name = "id",
-            sequenceName = "id",
+            name = "user_generator",
+            sequenceName = "user_sequence",
             initialValue = 1000
     )
     private Long id;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "user_name")
     private String name;
 
-    @Column(columnDefinition = "text")
+    @Column(name = "user_email")
     private String email;
 
     public String getName() {
@@ -30,4 +33,19 @@ public class UserModel extends TestModel {
         return email;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
