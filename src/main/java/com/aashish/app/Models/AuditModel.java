@@ -16,7 +16,7 @@ import java.util.Date;
         allowGetters = true
 )
 
-public abstract class TestModel implements Serializable {
+public abstract class AuditModel implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at", nullable = false, updatable = false)

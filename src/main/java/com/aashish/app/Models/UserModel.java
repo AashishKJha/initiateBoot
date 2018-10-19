@@ -1,14 +1,10 @@
 package com.aashish.app.Models;
 
-import org.hibernate.annotations.BatchSize;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
-public class UserModel extends TestModel {
+public class UserModel extends AuditModel {
 
     @Id
     @GeneratedValue(generator = "user_generator")
