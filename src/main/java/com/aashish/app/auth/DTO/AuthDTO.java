@@ -3,6 +3,7 @@ package com.aashish.app.auth.DTO;
 import com.aashish.app.auth.models.AuthModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
@@ -13,6 +14,7 @@ public class AuthDTO {
     @Autowired
     private AuthModel authModel;
 
+    @Valid
     @NotNull
     private String userName;
 
