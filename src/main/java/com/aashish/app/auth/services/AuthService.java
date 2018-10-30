@@ -2,7 +2,8 @@ package com.aashish.app.auth.services;
 
 import com.aashish.app.auth.models.AuthModel;
 import com.aashish.app.auth.repos.AuthRepo;
-import com.aashish.app.common.response.AuthResponse;
+import com.aashish.app.common.helper.AppException;
+import com.aashish.app.auth.helper.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,17 +18,16 @@ public class AuthService {
     }
 
     public AuthResponse login(AuthModel loginModel) {
-        try {
-            AuthModel auth = authRepo.findByUserEmail(loginModel.getUserEmail());
-            System.out.println(auth.getUserPassword());
+
+        AuthModel auth = authRepo.findByUserEmail(loginModel.getUserEmail());
+        if (auth == null) {
+            throw AppException.createException("Incorrect Email Please Correct email");
+        } else {
             if (auth.getUserPassword().equals(loginModel.getUserPassword())) {
                 return AuthResponse.createSuccess(true, "Success");
             } else {
-                System.out.println("Error");
-                return AuthResponse.createFailure(false, "LogIn Falure", "Email Or Password In-correct");
+                return AuthResponse.createFailure(false, "Incorrect Password");
             }
-        } catch (Exception err) {
-            return AuthResponse.createFailure(false, "Login Failed", err.toString());
         }
 
     }

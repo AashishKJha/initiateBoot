@@ -1,16 +1,18 @@
 package com.aashish.app.auth.DTO;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 
 public class LoginDTO {
 
     private String userName;
 
+    @NotEmpty
     @NotNull(message = "Password Should not be null")
     @Size(max = 20, min = 5)
     private String userPassword;
 
+    @NotEmpty
+    @Email
     @NotNull(message = "User Email Should not be null")
     private String userEmail;
 
