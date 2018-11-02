@@ -37,21 +37,6 @@ public class AppException extends RuntimeException {
         this.timaStamp = LocalDate.now();
     }
 
-    public void setErrorMessage(String errorMessage) {
-        this.errorMessage = errorMessage;
-    }
-
-    public void setErrorField(String errorField) {
-        this.errorField = errorField;
-    }
-
-    public void setTimaStamp(LocalDate timaStamp) {
-        this.timaStamp = timaStamp;
-    }
-
-    public void setErrorCode(String errorCode) {
-        this.errorCode = errorCode;
-    }
 
     private AppException(String errorCode, String errorField, String errorMessage, LocalDate timeStamp) {
         this.errorCode = errorCode;

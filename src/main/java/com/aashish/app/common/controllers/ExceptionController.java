@@ -16,28 +16,26 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionController {
     @ExceptionHandler
-    public ResponseEntity<AppException> handleException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ClientResponse> handleException(MethodArgumentNotValidException exception) {
         List<FieldError> errors = exception.getBindingResult().getFieldErrors();
         System.out.println(errors.size());
         if (errors.size() == 1) {
-            return new ResponseEntity<>(AppException.createException(errors.get(0).getCode(), errors.get(0).getField(), errors.get(0).getDefaultMessage(), LocalDate.now()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(ClientResponse.createFailure(false, errors.get(0).getDefaultMessage()), HttpStatus.BAD_REQUEST);
         } else {
-            ArrayList<AppException> exp = new ArrayList<>();
+            ArrayList<ClientResponse> exp = new ArrayList<>();
             errors.forEach(d -> {
-                AppException e = new AppException();
-                e.setErrorCode(d.getCode());
-                e.setErrorField(d.getField());
-                e.setErrorMessage(d.getDefaultMessage());
-                e.setTimaStamp(LocalDate.now());
+                ClientResponse e = new ClientResponse();
+                e.setError(d.getCode());
+                e.setMessage(d.getDefaultMessage());
                 exp.add(e);
             });
-            return new ResponseEntity<>(AppException.createException(exp, LocalDate.now()), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(ClientResponse.createFailure(false, exp), HttpStatus.BAD_REQUEST);
         }
     }
 
     @ExceptionHandler(AppException.class)
     @ResponseBody
     public ResponseEntity<ClientResponse> appException(AppException information) {
-        return new ResponseEntity<>(ClientResponse.createFailure(false, information.getMessage()), HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(ClientResponse.createFailure(false, information.getLocalizedMessage()), HttpStatus.NOT_FOUND);
     }
 }

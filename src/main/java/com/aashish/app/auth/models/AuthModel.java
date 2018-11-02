@@ -1,22 +1,24 @@
 package com.aashish.app.auth.models;
 
-import com.aashish.app.Models.AuditModel;
-import org.springframework.stereotype.Component;
+import com.aashish.app.common.models.AuditModel;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Table(name = "auth_table")
+@SequenceGenerator(
+        name = "auth_generator",
+        sequenceName = "auth_sequence",
+        initialValue = 1000
+)
 public class AuthModel extends AuditModel {
 
     @Id
-    @GeneratedValue(generator = "auth_generator")
-    @SequenceGenerator(
-            name = "auth_generator",
-            sequenceName = "auth_sequence",
-            initialValue = 100
-    )
+    @Column(name = "user_id", updatable = false)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "auth_generator")
+
     private Long userId;
 
     @Column(name = "user_name", columnDefinition = "VARCHAR(20)", nullable = false)
