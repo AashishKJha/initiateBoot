@@ -7,23 +7,24 @@ import com.aashish.app.auth.helper.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 
 @Service
 public class AuthService {
     @Autowired
     private AuthRepo authRepo;
 
-
     public AuthModel signUp(AuthModel authModel) {
-        return authRepo.save(authModel);
+        if (authRepo.findByUserEmail(authModel.getUserEmail()) == null) {
+            return authRepo.save(authModel);
+        } else {
+            throw AppException.createException("Email Already Exist");
+        }
     }
 
     public AuthResponse login(AuthModel loginModel) {
-
         AuthModel auth = authRepo.findByUserEmail(loginModel.getUserEmail());
         if (auth == null) {
-            throw AppException.createException("Incorrect Email Please Correct email");
+            throw AppException.createException("Invalid Email");
         } else {
             if (auth.getUserPassword().equals(loginModel.getUserPassword())) {
                 return AuthResponse.createSuccess(true, "Success");
@@ -31,6 +32,5 @@ public class AuthService {
                 return AuthResponse.createFailure(false, "Incorrect Password");
             }
         }
-
     }
 }

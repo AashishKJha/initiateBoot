@@ -6,26 +6,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDate;
 import java.util.List;
-
-@JsonIgnoreProperties(ignoreUnknown = true)
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class AppException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
-
-    @JsonProperty(value = "errCode")
     private String errorCode;
-
-    @JsonProperty(value = "errorMessage")
     private String errorMessage;
-
-    @JsonProperty(value = "errorField")
     private String errorField;
-
-    @JsonProperty(value = "timeStamp")
     private LocalDate timaStamp;
-
-    @JsonProperty(value = "errorData")
     private List errorData;
 
     public AppException() {

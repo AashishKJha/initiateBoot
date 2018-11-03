@@ -13,15 +13,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.aashish.app"})
-//,"com.aashish.app.common","com.aashish.app.start","com.aashish.app.auth"})
-@EnableJpaRepositories({"com.aashish.app*"})
-@EntityScan("com.aashish.app.*")
+@ComponentScan(basePackages = {"com"})
+@EnableJpaRepositories({"com.aashish.app.auth.repos"})
 @EnableJpaAuditing
+@EntityScan(basePackages = {"com.aashish.app.*"})
 public class StartApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(StartApplication.class, args);
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(new Class<?>[]{StartApplication.class}, args);
     }
 
     @Bean

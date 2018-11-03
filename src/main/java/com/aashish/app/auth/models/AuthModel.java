@@ -1,7 +1,6 @@
 package com.aashish.app.auth.models;
 
 import com.aashish.app.common.models.AuditModel;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -9,16 +8,16 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "auth_table")
 @SequenceGenerator(
-        name = "auth_generator",
+        name = "auth_sequence",
         sequenceName = "auth_sequence",
         initialValue = 1000
 )
+
 public class AuthModel extends AuditModel {
 
     @Id
     @Column(name = "user_id", updatable = false)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "auth_generator")
-
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "auth_sequence")
     private Long userId;
 
     @Column(name = "user_name", columnDefinition = "VARCHAR(20)", nullable = false)
@@ -42,20 +41,24 @@ public class AuthModel extends AuditModel {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public String getUserName() {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getUserEmail() {
         return userEmail;
+    }
+
+    public String getUserMobileNumber() {
+        return userMobileNumber;
+    }
+
+    public LocalDate getUserDOB() {
+        return userDOB;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public void setUserEmail(String userEmail) {
@@ -70,16 +73,8 @@ public class AuthModel extends AuditModel {
         this.userPassword = userPassword;
     }
 
-    public String getUserMobileNumber() {
-        return userMobileNumber;
-    }
-
     public void setUserMobileNumber(String userMobileNumber) {
         this.userMobileNumber = userMobileNumber;
-    }
-
-    public LocalDate getUserDOB() {
-        return userDOB;
     }
 
     public void setUserDOB(LocalDate userDOB) {

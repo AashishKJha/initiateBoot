@@ -20,22 +20,6 @@ public class ClientResponse {
     @JsonProperty(value = "errorList")
     private List errorList;
 
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public void setError(String error) {
-        this.error = error;
-    }
-
-    public void setErrorList(List errorList) {
-        this.errorList = errorList;
-    }
-
     public ClientResponse(boolean success, String message) {
         this.success = success;
         this.message = message;
