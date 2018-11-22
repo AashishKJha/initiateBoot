@@ -26,7 +26,6 @@ class OverA {
  * Overriding can be done only on methods not on feild.
  */
 public class Overriding extends OverA {
-
     private void test1() {
         System.out.println("Private Child Method");
 

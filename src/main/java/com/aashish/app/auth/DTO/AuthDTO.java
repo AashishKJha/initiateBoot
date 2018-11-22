@@ -4,8 +4,7 @@ import com.aashish.app.auth.models.AuthModel;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -19,11 +18,16 @@ public class AuthDTO {
     private String userName;
 
     @NotNull
-    @Size(max = 30)
+    @NotEmpty
+    @NotBlank
+    @Email
+    @Size(max = 30, min = 10)
     private String userEmail;
 
     @NotNull
-    @Size(max = 15)
+    @NotEmpty
+    @NotBlank
+    @Size(max = 15, min = 10)
     private String userMobNumber;
 
     @NotNull

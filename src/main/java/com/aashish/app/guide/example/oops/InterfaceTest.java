@@ -27,3 +27,8 @@ interface A {
 interface B {
     void showB();
 }
+
+interface Constants {
+    String INVALID = "INVALID";
+}
+

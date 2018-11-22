@@ -33,11 +33,8 @@ public class AuthController {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<Object> register(@RequestBody AuthDTO authDTO) {
-
+    public ResponseEntity<Object> register(@Valid @RequestBody AuthDTO authDTO) {
         AuthModel auth = this.authHelper.copyToAuthModel(authDTO);
-
         return new ResponseEntity<Object>(this.authService.signUp(auth), HttpStatus.OK);
-
     }
 }

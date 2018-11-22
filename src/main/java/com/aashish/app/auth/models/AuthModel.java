@@ -3,6 +3,7 @@ package com.aashish.app.auth.models;
 import com.aashish.app.common.models.AuditModel;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Entity
@@ -31,6 +32,7 @@ public class AuthModel extends AuditModel {
     )
     private String userPassword;
 
+    @NotNull(message = "Should not be null")
     @Column(name = "user_mob_number", nullable = false, columnDefinition = "CHAR(15)", unique = true)
     private String userMobileNumber;
 

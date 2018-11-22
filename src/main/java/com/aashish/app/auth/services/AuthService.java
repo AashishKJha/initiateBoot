@@ -1,11 +1,16 @@
 package com.aashish.app.auth.services;
 
+import com.aashish.app.auth.constants.AuthConstants;
 import com.aashish.app.auth.models.AuthModel;
 import com.aashish.app.auth.repos.AuthRepo;
 import com.aashish.app.common.helper.AppException;
 import com.aashish.app.auth.helper.AuthResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
 
 
 @Service
@@ -14,22 +19,27 @@ public class AuthService {
     private AuthRepo authRepo;
 
     public AuthModel signUp(AuthModel authModel) {
-        if (authRepo.findByUserEmail(authModel.getUserEmail()) == null) {
             return authRepo.save(authModel);
-        } else {
-            throw AppException.createException("Email Already Exist");
-        }
     }
 
     public AuthResponse login(AuthModel loginModel) {
         AuthModel auth = authRepo.findByUserEmail(loginModel.getUserEmail());
         if (auth == null) {
-            throw AppException.createException("Invalid Email");
+            throw AppException.createException(AuthConstants.INVALID_EMAIL);
         } else {
             if (auth.getUserPassword().equals(loginModel.getUserPassword())) {
-                return AuthResponse.createSuccess(true, "Success");
+
+                Map<String, Object> authRe = new HashMap<>();
+                authRe.put(AuthConstants.ACCESS_TOKEN, String.valueOf(Math.random()));
+                authRe.put(AuthConstants.EXP_TIME, String.valueOf(AuthConstants.expTime));
+                authRe.put(AuthConstants.EXP_UNIT, "min");
+
+                return AuthResponse.createSuccess(true, authRe);
+
             } else {
-                return AuthResponse.createFailure(false, "Incorrect Password");
+
+                return AuthResponse.createFailure(false, AuthConstants.INVALID_PASSWORD);
+
             }
         }
     }

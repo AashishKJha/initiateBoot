@@ -7,13 +7,12 @@ public class LoginDTO {
     private String userName;
 
     @NotEmpty
-    @NotNull(message = "Password Should not be null")
-    @Size(max = 20, min = 5)
+    @NotNull
     private String userPassword;
 
     @NotEmpty
     @Email
-    @NotNull(message = "User Email Should not be null")
+    @NotNull
     private String userEmail;
 
     private String userMobNumber;

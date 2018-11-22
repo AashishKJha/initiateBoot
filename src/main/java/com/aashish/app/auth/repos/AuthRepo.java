@@ -7,5 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface AuthRepo extends JpaRepository<AuthModel, Long> {
     AuthModel findByUserEmail(String email);
+    //AuthModel findByUserMobNumber(String userMobNumber);
 }
 

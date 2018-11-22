@@ -14,6 +14,9 @@ public class ClientResponse {
     @JsonProperty(value = "message")
     private String message;
 
+    @JsonProperty(value = "data")
+    private Object data;
+
     @JsonProperty(value = "error")
     private String error;
 
@@ -36,6 +39,11 @@ public class ClientResponse {
         this.errorList = errorList;
     }
 
+    public ClientResponse(boolean success, Object data) {
+        this.success = success;
+        this.data = data;
+    }
+
     public ClientResponse() {
     }
 
@@ -49,5 +57,9 @@ public class ClientResponse {
 
     public static ClientResponse createFailure(boolean success, List errorList) {
         return new ClientResponse(success, errorList);
+    }
+
+    public static ClientResponse createFailure(boolean success, Object data) {
+        return new ClientResponse(success, data);
     }
 }
