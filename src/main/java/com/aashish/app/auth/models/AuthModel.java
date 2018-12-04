@@ -28,7 +28,7 @@ public class AuthModel extends AuditModel {
     private String userEmail;
 
     @Column(
-            name = "user_password", nullable = false, columnDefinition = "VARCHAR(20)"
+            name = "user_password", nullable = false
     )
     private String userPassword;
 

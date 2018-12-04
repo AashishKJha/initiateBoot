@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.Valid;
 
@@ -25,16 +26,25 @@ public class AuthController {
     @Autowired
     private AuthHelper authHelper;
 
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public ResponseEntity login(@Valid @RequestBody LoginDTO loginDTO) {
-            AuthModel authModel = this.authHelper.copyToLoginModel(loginDTO);
-            return new ResponseEntity<Object>(authService.login(authModel), HttpStatus.OK);
+
+    AuthController(BCryptPasswordEncoder bps) {
+
+        this.bCryptPasswordEncoder = bps;
+
     }
+
+//    @RequestMapping(value = "/login", method = RequestMethod.POST)
+//    public ResponseEntity login(@Valid @RequestBody LoginDTO loginDTO) {
+//            AuthModel authModel = this.authHelper.copyToLoginModel(loginDTO);
+//            return new ResponseEntity<Object>(authService.login(authModel), HttpStatus.OK);
+//    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<Object> register(@Valid @RequestBody AuthDTO authDTO) {
         AuthModel auth = this.authHelper.copyToAuthModel(authDTO);
+        auth.setUserPassword(bCryptPasswordEncoder.encode(authDTO.getUserPassword()));
         return new ResponseEntity<Object>(this.authService.signUp(auth), HttpStatus.OK);
     }
 }
