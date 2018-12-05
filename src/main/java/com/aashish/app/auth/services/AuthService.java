@@ -43,4 +43,13 @@ public class AuthService {
             }
         }
     }
+
+    public AuthResponse getProfile(String userEmail) {
+        AuthModel auth = authRepo.findByUserEmail(userEmail);
+        if (auth == null) {
+            return AuthResponse.createFailure(false, "User Not Found");
+        }
+        return AuthResponse.createSuccess(true, auth);
+    }
+
 }

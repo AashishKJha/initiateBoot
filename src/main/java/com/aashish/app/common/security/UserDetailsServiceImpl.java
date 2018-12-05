@@ -19,9 +19,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         this.applicationUserRepository = applicationUserRepository;
     }
 
+    /**
+     * Method is used to load user by user email.
+     *
+     * @param userEmail - user email
+     * @return
+     * @throws UsernameNotFoundException - exception
+     */
     @Override
     public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        System.out.println(userEmail);
         AuthModel applicationUser = applicationUserRepository.findByUserEmail(userEmail);
         if (applicationUser == null) {
             throw new UsernameNotFoundException(userEmail);

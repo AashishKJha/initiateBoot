@@ -3,6 +3,7 @@ package com.aashish.app.common.controllers;
 import com.aashish.app.common.helper.AppException;
 import com.aashish.app.common.response.ClientResponse;
 import com.aashish.app.common.response.ValidationErrorResponse;
+import io.jsonwebtoken.ExpiredJwtException;
 import org.postgresql.util.PSQLException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,13 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
-public class ExceptionController {
+public class ExceptionController extends CommonController {
 
     @ExceptionHandler
     public ResponseEntity<ClientResponse> handleException(MethodArgumentNotValidException exception) {
@@ -41,9 +43,17 @@ public class ExceptionController {
         return new ResponseEntity<>(ClientResponse.createFailure(false, information.getLocalizedMessage()), HttpStatus.NOT_FOUND);
     }
 
+//    @ExceptionHandler(ExpiredJwtException.class)
+//    @ResponseBody
+//    public ResponseEntity<ClientResponse> serverException(ExpiredJwtException information) {
+//        return new ResponseEntity<>(ClientResponse.createFailure(false, information.getLocalizedMessage()), HttpStatus.NOT_FOUND);
+//    }
+
     @ExceptionHandler({RuntimeException.class, Exception.class})
     @ResponseBody
     public ResponseEntity technicalError(Throwable ex) throws IOException {
+
+        System.out.println("Error : " + ex.toString());
         while (ex.getCause() != null) {
             ex = ex.getCause();
         }
