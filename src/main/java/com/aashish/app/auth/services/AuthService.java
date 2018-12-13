@@ -37,9 +37,7 @@ public class AuthService {
                 return AuthResponse.createSuccess(true, authRe);
 
             } else {
-
                 return AuthResponse.createFailure(false, AuthConstants.INVALID_PASSWORD);
-
             }
         }
     }
@@ -51,5 +49,10 @@ public class AuthService {
         }
         return AuthResponse.createSuccess(true, auth);
     }
+
+    public AuthResponse getCurrentUser() {
+        return null;
+    }
+
 
 }

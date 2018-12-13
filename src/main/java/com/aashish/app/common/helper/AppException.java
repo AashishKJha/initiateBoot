@@ -1,5 +1,6 @@
 package com.aashish.app.common.helper;
 
+import com.aashish.app.guide.example.App;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -49,5 +50,29 @@ public class AppException extends RuntimeException {
         return new AppException(data, timeStamp);
     }
 
+    public static AppException createException(String errorCode, String errorMessage) {
+        AppException appException = new AppException(errorMessage);
+        appException.setErrorCode(errorCode);
+        return appException;
+    }
 
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
+    public String getErrorField() {
+        return errorField;
+    }
+
+    public List getErrorData() {
+        return errorData;
+    }
 }

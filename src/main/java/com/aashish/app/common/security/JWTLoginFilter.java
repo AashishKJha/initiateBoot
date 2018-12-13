@@ -28,6 +28,9 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     public Authentication attemptAuthentication(
             HttpServletRequest req, HttpServletResponse res)
             throws AuthenticationException, IOException, ServletException {
+
+        //Change here if user login with mobile number
+
         AuthModel creds = new ObjectMapper()
                 .readValue(req.getInputStream(), AuthModel.class);
         return getAuthenticationManager().authenticate(
@@ -44,6 +47,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             HttpServletRequest req,
             HttpServletResponse res, FilterChain chain,
             Authentication auth) throws IOException, ServletException {
+        System.out.println("SuccessFul auth" + auth.getName());
         TokenAuthenticationService
                 .addAuthentication(res, auth.getName());
     }

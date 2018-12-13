@@ -49,4 +49,5 @@ public class AuthController extends CommonController {
     public ResponseEntity<Object> userProfile(@PathVariable("email") String userEmail) {
         return new ResponseEntity<Object>(authService.getProfile(userEmail), HttpStatus.OK);
     }
+
 }

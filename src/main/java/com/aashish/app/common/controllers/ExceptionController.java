@@ -40,7 +40,7 @@ public class ExceptionController extends CommonController {
     @ExceptionHandler(AppException.class)
     @ResponseBody
     public ResponseEntity<ClientResponse> appException(AppException information) {
-        return new ResponseEntity<>(ClientResponse.createFailure(false, information.getLocalizedMessage()), HttpStatus.NOT_FOUND);
+        return ResponseEntity.status(Integer.parseInt(information.getErrorCode())).body(ClientResponse.createFailure(false, information.getErrorMessage()));
     }
 
 //    @ExceptionHandler(ExpiredJwtException.class)

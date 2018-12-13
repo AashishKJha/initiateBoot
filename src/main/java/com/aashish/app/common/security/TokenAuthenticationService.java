@@ -21,8 +21,10 @@ import static java.util.Collections.emptyList;
 class TokenAuthenticationService {
 
     static void addAuthentication(HttpServletResponse res, String username) throws IOException, ServletException {
+        Map<String, Object> mp = new HashMap<String, Object>();
+        mp.put("email", username);
         String JWT = Jwts.builder()
-                .setSubject(username)
+                .setSubject(new ObjectMapper().writeValueAsString(mp))
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATIONTIME))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
                 .compact();
