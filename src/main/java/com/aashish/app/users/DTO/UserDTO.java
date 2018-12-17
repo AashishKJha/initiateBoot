@@ -5,26 +5,19 @@ import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 public class UserDTO {
-    @Valid
-    @NotNull
     private String userName;
-
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    @Email
-    @Size(max = 30, min = 10)
     private String userEmail;
-
-    @NotNull
-    @NotEmpty
-    @NotBlank
-    @Size(max = 15, min = 10)
     private String userMobNumber;
-
-
-    @NotNull
     private LocalDate userDOB;
+    private Long userId;
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
     public String getUserName() {
         return userName;

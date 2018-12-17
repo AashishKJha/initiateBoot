@@ -1,10 +1,13 @@
 package com.aashish.app.common.helper;
 
+import com.aashish.app.common.constants.AppConstants;
 import com.aashish.app.guide.example.App;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 public class AppException extends RuntimeException {
@@ -51,6 +54,8 @@ public class AppException extends RuntimeException {
     }
 
     public static AppException createException(String errorCode, String errorMessage) {
+        System.out.println(errorCode);
+        System.out.println(errorMessage);
         AppException appException = new AppException(errorMessage);
         appException.setErrorCode(errorCode);
         return appException;

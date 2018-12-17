@@ -20,8 +20,8 @@ public class UsersController extends CommonController {
     private UsersController() {
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET)
+    @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = "application/json")
     public ResponseEntity<Object> profile() {
-        return new ResponseEntity<Object>(userService.getUser(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUser(), HttpStatus.OK);
     }
 }

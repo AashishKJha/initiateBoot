@@ -31,12 +31,9 @@ public class JWTAuthorizationFilter extends GenericFilterBean {
                     .setAuthentication(authentication);
             filterChain.doFilter(request, response);
         } catch (RuntimeException e) {
-            //response type
-            hsr.setContentType("application/json");
-
+            hsr.setContentType(SecurityConstants.APPLICATION_JSON);
             //402 for unauthorized request.
             hsr.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-
             ObjectMapper mapper = new ObjectMapper();
             hsr.getWriter().write(mapper.writeValueAsString(ClientResponse.createFailure(false, e.getMessage())));
         }

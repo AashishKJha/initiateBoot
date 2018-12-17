@@ -30,7 +30,8 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.csrf().disable().authorizeRequests()
                 .antMatchers("/").permitAll()
                 .antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
-                .anyRequest().authenticated()
+                .antMatchers(SecurityConstants.TOKEN_REFRESH_ENTRY_POINT).permitAll()
+                .antMatchers(SecurityConstants.PUBLIC_ENTRY_POINT).permitAll()
                 .and()
                 // We filter the api/auth/login requests
                 .addFilterBefore(new JWTLoginFilter(SecurityConstants.LOG_IN_URL, authenticationManager()),
@@ -42,7 +43,6 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // Create a default account
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder);
     }
 }

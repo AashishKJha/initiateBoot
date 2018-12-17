@@ -2,12 +2,15 @@ package com.aashish.app.common.security;
 
 import com.aashish.app.auth.models.AuthModel;
 import com.aashish.app.auth.repos.AuthRepo;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+
+import java.util.Collection;
 
 import static java.util.Collections.emptyList;
 
@@ -27,12 +30,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      * @throws UsernameNotFoundException - exception
      */
     @Override
-    public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
-        System.out.println("Load User : " + userEmail);
+    public LoginUserData loadUserByUsername(String userEmail) throws UsernameNotFoundException {
         AuthModel applicationUser = applicationUserRepository.findByUserEmail(userEmail);
         if (applicationUser == null) {
-            throw new UsernameNotFoundException(userEmail);
+            throw new UsernameNotFoundException(SecurityConstants.USER_DOES_NOT_EXITS);
         }
-        return new User(applicationUser.getUserEmail(), applicationUser.getUserPassword(), emptyList());
+        return new LoginUserData(applicationUser.getUserId(), applicationUser.getUserMobileNumber(), applicationUser.getUserName(), applicationUser.getUserEmail(), applicationUser.getUserPassword(), emptyList());
     }
 }
+

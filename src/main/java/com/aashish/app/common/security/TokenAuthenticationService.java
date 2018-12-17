@@ -1,5 +1,6 @@
 package com.aashish.app.common.security;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.jsonwebtoken.Jwts;
@@ -15,34 +16,37 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import static java.util.Collections.emptyList;
 
 class TokenAuthenticationService {
 
-    static void addAuthentication(HttpServletResponse res, String username) throws IOException, ServletException {
-        Map<String, Object> mp = new HashMap<String, Object>();
-        mp.put("email", username);
-        String JWT = Jwts.builder()
-                .setSubject(new ObjectMapper().writeValueAsString(mp))
-                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.EXPIRATIONTIME))
+    static void addAuthentication(HttpServletResponse res, String username, LoginUserData loginUserData) throws IOException, ServletException {
+
+        //Creating Access Token
+        String ACCESS_TOKEN = Jwts.builder()
+                .setSubject(new ObjectMapper().writeValueAsString(loginUserData))
+                .setId(UUID.randomUUID().toString())
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.ACCESS_TOKEN_EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
                 .compact();
+
+        //Creating Refresh token
+        String REFRESH_TOKEN = Jwts.builder()
+                .setSubject(new ObjectMapper().writeValueAsString(loginUserData))
+                .setId(UUID.randomUUID().toString())
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.REFRESH_TOKEN_EXPIRATION_TIME))
+                .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
+                .compact();
+
+
         //res.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + " " + JWT);
 
         //Used to send auth_token and other data in body not in headers.
-        Map<String, Object> map = new HashMap<>();
-
-        map.put("token", JWT);
-        map.put("HEADER_STRING", SecurityConstants.HEADER_STRING);
-        map.put("TOKEN_PREFIX", SecurityConstants.TOKEN_PREFIX);
-        map.put("grant_type", "password");
-        map.put("EXPIRATION_TIME", SecurityConstants.EXPIRATIONTIME);
-        res.setContentType("application/json");
-
-        ObjectMapper ob = new ObjectMapper();
-
-        res.getWriter().write(ob.writeValueAsString(map));
+        res.setHeader("Content-Type", "application/json");
+        res.getWriter().write(TokenAuthenticationService.createResponseMap(ACCESS_TOKEN, REFRESH_TOKEN));
     }
 
     static Authentication getAuthentication(HttpServletRequest request) {
@@ -59,5 +63,18 @@ class TokenAuthenticationService {
                     null;
         }
         return null;
+    }
+
+    private static String createResponseMap(String access_token, String refresh_token) throws JsonProcessingException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("ACCESS_TOKEN", access_token);
+        map.put("REFRESH_TOKEN", refresh_token);
+        map.put("HEADER_STRING", SecurityConstants.HEADER_STRING);
+        map.put("TOKEN_PREFIX", SecurityConstants.TOKEN_PREFIX);
+        map.put("GRANT_TYPE", "password");
+        map.put("ACCESS_TOKEN_EXPIRATION_TIME", SecurityConstants.ACCESS_TOKEN_EXPIRATION_TIME);
+        map.put("REFRESH_TOKEN_EXPIRATION_TIME", SecurityConstants.REFRESH_TOKEN_EXPIRATION_TIME);
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(map);
     }
 }
