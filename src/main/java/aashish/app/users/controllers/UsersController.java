@@ -3,7 +3,9 @@ package aashish.app.users.controllers;
 
 import aashish.app.common.controllers.CommonController;
 import aashish.app.users.DTO.UpdateUserDTO;
+import aashish.app.users.constants.UsersConstants;
 import aashish.app.users.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +27,12 @@ public class UsersController extends CommonController {
     private UsersController() {
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = "application/json")
+    @RequestMapping(value = "/profile", method = RequestMethod.GET, produces = UsersConstants.APPLICATION_JSON)
     public ResponseEntity<Object> profile() throws IOException {
         return new ResponseEntity<>(userService.getUser(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/profile", method = RequestMethod.POST, produces = "application/json")
+    @RequestMapping(value = "/profile", method = RequestMethod.POST, produces = UsersConstants.APPLICATION_JSON)
     public ResponseEntity<Object> updateProfile(@Valid @RequestBody UpdateUserDTO updateUserDTO) throws IOException {
         return new ResponseEntity<>(userService.updateUser(updateUserDTO), HttpStatus.OK);
     }

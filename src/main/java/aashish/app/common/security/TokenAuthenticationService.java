@@ -1,5 +1,6 @@
 package aashish.app.common.security;
 
+import aashish.app.common.helper.StoreLoginUser;
 import aashish.app.users.DTO.UserDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,19 +23,12 @@ import static java.util.Collections.emptyList;
 
 class TokenAuthenticationService {
 
-    static void addAuthentication(HttpServletResponse res, LoginUserData loginUserData) throws IOException, ServletException {
+    static void addAuthentication(HttpServletResponse res, StoreLoginUser storeLoginUser) throws IOException, ServletException {
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUserFirstName(loginUserData.getUserFirstName());
-        userDTO.setUserMiddleName(loginUserData.getUserMiddleName());
-        userDTO.setUserLastName(loginUserData.getUserLastName());
-        userDTO.setUserId(loginUserData.getUserId());
-        userDTO.setUserEmail(loginUserData.getUserEmail());
-        userDTO.setUserMobNumber(loginUserData.getUserMobileNumber());
 
         //Creating Access Token
         String ACCESS_TOKEN = Jwts.builder()
-                .setSubject(new ObjectMapper().writeValueAsString(userDTO))
+                .setSubject(new ObjectMapper().writeValueAsString(storeLoginUser))
                 .setId(UUID.randomUUID().toString())
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.ACCESS_TOKEN_EXPIRATION_TIME))
                 .signWith(SignatureAlgorithm.HS512, SecurityConstants.SECRET)
@@ -42,7 +36,7 @@ class TokenAuthenticationService {
 
         //Creating Refresh token
         String REFRESH_TOKEN = Jwts.builder()
-                .setSubject(new ObjectMapper().writeValueAsString(userDTO))
+                .setSubject(new ObjectMapper().writeValueAsString(storeLoginUser))
                 .setId(UUID.randomUUID().toString())
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.REFRESH_TOKEN_EXPIRATION_TIME))

@@ -50,8 +50,6 @@ public class ExceptionController extends CommonController {
     @ExceptionHandler({RuntimeException.class, Exception.class})
     @ResponseBody
     public ResponseEntity technicalError(Throwable ex) throws IOException {
-
-        System.out.println("Error : " + ex.toString());
         while (ex.getCause() != null) {
             ex = ex.getCause();
         }
@@ -63,12 +61,10 @@ public class ExceptionController extends CommonController {
             vl.setErrorFeild(sve.getColumn());
             vl.setErrorMessage(sve.getDetail());
             vl.setErrorCode(sve.getSQLState());
-            return new ResponseEntity<ClientResponse>(ClientResponse.createFailure(false, vl), HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity<>(ClientResponse.createFailure(false, vl), HttpStatus.INTERNAL_SERVER_ERROR);
 
         }
-
-        ValidationErrorResponse vl = new ValidationErrorResponse();
-        return new ResponseEntity<ClientResponse>(ClientResponse.createFailure(false, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(ClientResponse.createFailure(false, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }

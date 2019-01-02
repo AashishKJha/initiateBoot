@@ -4,6 +4,7 @@ import aashish.app.auth.models.AuthModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
@@ -28,6 +29,7 @@ public class LoginUserData extends User {
 
     @JsonProperty
     private String userEmail;
+
     @JsonProperty
     private String userMobileNumber;
 

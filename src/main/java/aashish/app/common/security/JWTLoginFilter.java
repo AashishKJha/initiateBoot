@@ -2,6 +2,7 @@ package aashish.app.common.security;
 
 
 import aashish.app.auth.models.AuthModel;
+import aashish.app.common.helper.StoreLoginUser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -57,9 +58,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         if (auth.getPrincipal() == null) {
             throw new UserPrincipalNotFoundException("User Principals Not Found");
         }
-        LoginUserData loginUserData = (LoginUserData) auth.getPrincipal();
         TokenAuthenticationService
-                .addAuthentication(res, loginUserData);
+                .addAuthentication(res, new StoreLoginUser((LoginUserData) auth.getPrincipal()));
     }
 
     @Override
