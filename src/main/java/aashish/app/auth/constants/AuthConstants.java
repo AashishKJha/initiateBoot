@@ -11,4 +11,5 @@ public class AuthConstants extends AppConstants {
     public static final String ACCESS_TOKEN = "ACCESS_TOKEN";
     public static final String EXP_TIME = "EXP_TIME";
     public static final String EXP_UNIT = "EXP_UNIT";
+    public static final String fromEmail = "aashishjha.1994@gmail.com";
 }

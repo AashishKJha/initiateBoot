@@ -2,6 +2,7 @@ package aashish.app.common.helper;
 
 import java.time.LocalDate;
 import java.util.List;
+
 public class AppException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
@@ -46,8 +47,6 @@ public class AppException extends RuntimeException {
     }
 
     public static AppException createException(String errorCode, String errorMessage) {
-        System.out.println(errorCode);
-        System.out.println(errorMessage);
         AppException appException = new AppException(errorMessage);
         appException.setErrorCode(errorCode);
         return appException;

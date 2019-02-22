@@ -27,16 +27,8 @@ public class AuthController extends CommonController {
 
 
     AuthController(BCryptPasswordEncoder bps) {
-
         this.bCryptPasswordEncoder = bps;
-
     }
-
-//    @RequestMapping(value = "/login", method = RequestMethod.POST)
-//    public ResponseEntity login(@Valid @RequestBody LoginDTO loginDTO) {
-//            AuthModel authModel = this.authHelper.copyToLoginModel(loginDTO);
-//            return new ResponseEntity<Object>(authService.login(authModel), HttpStatus.OK);
-//    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public ResponseEntity<Object> register(@Valid @RequestBody AuthDTO authDTO) {
@@ -50,4 +42,8 @@ public class AuthController extends CommonController {
         return new ResponseEntity<Object>(authService.getProfile(userEmail), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/forgot-password/{email}", method = RequestMethod.GET)
+    public void forgotPassword(@PathVariable("email") String userEmail) {
+        authService.forgetPassword(userEmail, "Forget Password!");
+    }
 }

@@ -41,12 +41,6 @@ public class ExceptionController extends CommonController {
         return ResponseEntity.status(Integer.parseInt(information.getErrorCode())).body(ClientResponse.createFailure(false, information.getErrorMessage()));
     }
 
-//    @ExceptionHandler(ExpiredJwtException.class)
-//    @ResponseBody
-//    public ResponseEntity<ClientResponse> serverException(ExpiredJwtException information) {
-//        return new ResponseEntity<>(ClientResponse.createFailure(false, information.getLocalizedMessage()), HttpStatus.NOT_FOUND);
-//    }
-
     @ExceptionHandler({RuntimeException.class, Exception.class})
     @ResponseBody
     public ResponseEntity technicalError(Throwable ex) throws IOException {
@@ -66,5 +60,4 @@ public class ExceptionController extends CommonController {
         }
         return new ResponseEntity<>(ClientResponse.createFailure(false, ex.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
 }
