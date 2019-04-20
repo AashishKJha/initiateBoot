@@ -17,7 +17,8 @@ import java.util.List;
 @ControllerAdvice
 public class ExceptionController extends CommonController {
 
-    @ExceptionHandler
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseBody
     public ResponseEntity<ClientResponse> handleException(MethodArgumentNotValidException exception) {
 
         List<FieldError> errors = exception.getBindingResult().getFieldErrors();
