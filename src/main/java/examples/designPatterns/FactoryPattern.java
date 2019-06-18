@@ -66,7 +66,6 @@ class AnimalFactory {
             }
             break;
         }
-
         return animal;
     }
 }
