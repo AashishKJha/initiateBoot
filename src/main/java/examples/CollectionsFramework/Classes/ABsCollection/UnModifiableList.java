@@ -6,7 +6,7 @@ public class UnModifiableList<T> {
 
     public static void main(String[] args) {
         List<String> stringList = new ArrayList<>();
-        stringList.add("aashish");
+        stringList.add("initiateBoot");
         stringList.add("kumar");
         stringList.add("jha");
         stringList.add(10, "Aasjosj Kumar");

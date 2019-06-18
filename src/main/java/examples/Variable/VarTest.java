@@ -26,7 +26,7 @@ public class VarTest {
         VarTest.standard = "12";
 
         VarTest vr = new VarTest();
-        vr.setName("aashish");
+        vr.setName("initiateBoot");
         System.out.println("Name1 : " + vr.getName());
         System.out.println("Standard : " + VarTest.standard);
 

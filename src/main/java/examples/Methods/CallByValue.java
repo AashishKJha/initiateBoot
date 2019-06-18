@@ -8,7 +8,7 @@ public class CallByValue {
     static String s2;
 
     public static void main(String[] args) {
-        s1 = "aashish";
+        s1 = "initiateBoot";
         s2 = "jha";
         System.out.println(manipulate(s1, s2));
 

@@ -18,7 +18,7 @@ public class Encapsulation {
          * It can be only accessed by methods of that class.
          */
 
-        en.setName("aashish");
+        en.setName("initiateBoot");
         en.setAge(24);
         System.out.println("Name : " + en.getName() + " " + " Age : " + en.getAge());
     }

@@ -21,7 +21,7 @@ class Main {
         ArrayList<UserTypeArr> testAr = new ArrayList<>();
 
         usr.data = 12;
-        usr.name = "aashish";
+        usr.name = "initiateBoot";
 
         for (int i = 0; i < 5; i++) {
             testAr.add(usr);

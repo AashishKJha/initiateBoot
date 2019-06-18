@@ -8,7 +8,7 @@ public class Inheritance {
 
         ChildClass child2 = new ChildClass(10);
 
-        ChildClass child3 = new ChildClass(5, "aashish");
+        ChildClass child3 = new ChildClass(5, "initiateBoot");
         System.out.println(child1.publicData);
 
         System.out.println(child2.publicData);

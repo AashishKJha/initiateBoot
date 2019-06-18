@@ -6,13 +6,13 @@ public class Contructors {
         TestConstructors ts = new TestConstructors();
         System.out.println("For Constructor TestConstructors()");
         System.out.println("_________________________________________________________");
-        ts.setName("aashish");
+        ts.setName("initiateBoot");
         System.out.println("name : " + ts.getName());
         System.out.println("Max : " + ts.MAX);
 
 
         TestConstructors tsd = new TestConstructors();
-        tsd.setName("aashish sasas");
+        tsd.setName("initiateBoot sasas");
         System.out.println("For Constructor TestConstructors()");
         System.out.println("_________________________________________________________");
         System.out.println("name : " + tsd.getName());
@@ -20,10 +20,10 @@ public class Contructors {
 
 
         TestConstructors ts1 = new TestConstructors("Jha");
-        System.out.println("For Constructor TestConstructors(aashish)");
+        System.out.println("For Constructor TestConstructors(initiateBoot)");
         System.out.println("_________________________________________________________");
         System.out.println("name : " + ts1.getName());
-        ts1.setName("aashish jha");
+        ts1.setName("initiateBoot jha");
         System.out.println("name : " + ts1.getName());
         System.out.println("Max : " + ts1.MAX);
 

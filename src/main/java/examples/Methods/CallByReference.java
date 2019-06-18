@@ -10,7 +10,7 @@ public class CallByReference {
     }
 
     public static void main(String[] args) {
-        CallByReference call = new CallByReference("aashish", "jha");
+        CallByReference call = new CallByReference("initiateBoot", "jha");
         System.out.println(call.manupulate(call));
 
         System.out.println(call.s1);

@@ -23,7 +23,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.7</maven.compiler.source>
         <maven.compiler.target>1.7</maven.compiler.target>
-        <start-class>com.aashish.aashish.app.start.StartApplication</start-class>
+        <start-class>com.initiateBoot.initiateBoot.app.start.StartApplication</start-class>
         <project.packaging>war</project.packaging>
     </properties>
 

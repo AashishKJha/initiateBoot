@@ -5,7 +5,7 @@ import java.util.*;
 public class ListInterfaceDemo {
     public static void main(String[] args) {
         LinkedList<String> stringList = new LinkedList<>();
-        stringList.add("aashish");
+        stringList.add("initiateBoot");
         stringList.add("kumar");
         stringList.add("jha");
 

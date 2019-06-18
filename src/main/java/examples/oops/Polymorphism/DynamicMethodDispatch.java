@@ -6,7 +6,7 @@ public class DynamicMethodDispatch {
          * Run time polymorphism
          */
         B a = new C();
-        a.setName("aashish");
+        a.setName("initiateBoot");
         C c = new C();
         c.setName("Kumar");
         System.out.println(a.mergerName(" Jha"));
